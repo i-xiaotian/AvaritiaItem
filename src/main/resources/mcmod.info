@@ -1,0 +1,23 @@
+{
+  "modListVersion": 2,
+  "modList": [
+    {
+      "modid": "avaritia_item",
+      "name": "无尽物品",
+      "description": "crt制作无尽特效物品",
+      "version": "${version}",
+      "mcversion": "${mcversion}",
+      "url": "https://github.com/NovaEngineering-Source/NovaEngineering-Core",
+      "updateUrl": "",
+      "authorList": [
+        "i_xiaotian"
+      ],
+      "credits": "",
+      "logoFile": "",
+      "screenshots": [],
+      "dependencies": [],
+      "requiredMods": [],
+      "useDependencyInformation": true
+    }
+  ]
+}
