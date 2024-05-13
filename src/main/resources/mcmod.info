@@ -2,7 +2,7 @@
   "modListVersion": 2,
   "modList": [
     {
-      "modid": "avaritia_item",
+      "modid": "avaritiaitem",
       "name": "AvaritiaItem(无尽物品)",
       "description": "create items with avaritia's item effects by CraftTweaker",
       "version": "${version}",
