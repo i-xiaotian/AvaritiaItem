@@ -29,8 +29,8 @@ public class AvaritiaItemHalo extends AvaritiaBasicItem implements IHaloRenderIt
 
     private boolean shouldDrawPulse;
 
-    public AvaritiaItemHalo(String name) {
-        super(name);
+    public AvaritiaItemHalo(String name, int maxStackSize) {
+        super(name, maxStackSize);
     }
 
     @Override

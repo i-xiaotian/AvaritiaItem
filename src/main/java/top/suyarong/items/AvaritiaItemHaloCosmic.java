@@ -26,8 +26,8 @@ public class AvaritiaItemHaloCosmic extends AvaritiaBasicItem implements IHaloRe
 
     private boolean shouldDrawPulse;
 
-    public AvaritiaItemHaloCosmic(String name) {
-        super(name);
+    public AvaritiaItemHaloCosmic(String name, int maxStackSize) {
+        super(name, maxStackSize);
     }
 
     @Override

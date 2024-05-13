@@ -19,7 +19,7 @@ public abstract class AvaritiaBasicItem extends Item implements IModelRegister {
 
     public static final TextureMap TEXTURE_MAP = Minecraft.getMinecraft().getTextureMapBlocks();
 
-    public AvaritiaBasicItem(String name) {
+    public AvaritiaBasicItem(String name, int maxStackSize) {
         super();
         if (StringUtils.isBlank(name)) {
             log.warn(new TextComponentTranslation("message.item_register.blank_name").getFormattedText());
@@ -29,6 +29,7 @@ public abstract class AvaritiaBasicItem extends Item implements IModelRegister {
         setRegistryName(lowerCaseName);
         setTranslationKey(ITEM_PREFIX + lowerCaseName);
         setCreativeTab(AvaritiaItem.avaritiaItemTab);
+        setMaxStackSize(maxStackSize);
         log.info(new TextComponentTranslation("message.item_register.success", lowerCaseName).getFormattedText());
 
     }

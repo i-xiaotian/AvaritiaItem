@@ -13,8 +13,8 @@ public class AvaritiaItemCosmic extends AvaritiaBasicItem implements ICosmicRend
 
     private float maskOpacity;
 
-    public AvaritiaItemCosmic(String name) {
-        super(name);
+    public AvaritiaItemCosmic(String name, int maxStackSize) {
+        super(name, maxStackSize);
     }
 
     @Override
