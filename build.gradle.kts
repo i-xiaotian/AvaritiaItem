@@ -12,7 +12,7 @@ plugins {
 
 // Project properties
 group = "top.suyarong"
-version = "pre-1.0"
+version = "1.0.0-pre"
 
 // Set the toolchain version to decouple the Java we run Gradle with from the Java used to compile and run the mod
 java {
@@ -29,6 +29,7 @@ java {
 // Most RFG configuration lives here, see the JavaDoc for com.gtnewhorizons.retrofuturagradle.MinecraftExtension
 minecraft {
     mcVersion.set("1.12.2")
+
 
     // Username for client run configurations
     username.set("i_xiaotian")

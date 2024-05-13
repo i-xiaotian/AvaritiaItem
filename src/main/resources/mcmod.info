@@ -3,11 +3,11 @@
   "modList": [
     {
       "modid": "avaritia_item",
-      "name": "无尽物品",
-      "description": "crt制作无尽特效物品",
+      "name": "AvaritiaItem(无尽物品)",
+      "description": "create items with avaritia's item effects by CraftTweaker",
       "version": "${version}",
       "mcversion": "${mcversion}",
-      "url": "https://github.com/NovaEngineering-Source/NovaEngineering-Core",
+      "url": "https://github.com/i-xiaotian/top.suyarong.AvaritiaItem.git",
       "updateUrl": "",
       "authorList": [
         "i_xiaotian"
@@ -21,3 +21,4 @@
     }
   ]
 }
+
