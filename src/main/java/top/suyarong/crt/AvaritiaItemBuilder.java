@@ -9,13 +9,13 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class AvaritiaItemBuilder {
 
     @ZenMethod("registerItem")
-    public ItemPrimitive registerItem(String name) {
-        return new ItemPrimitive(name);
+    public static ItemPrimer registerItem(String name) {
+        return new ItemPrimer(name);
     }
 
     @ZenMethod("registerItem")
-    public ItemPrimitive registerItem(String name, int maxStackSize) {
-        return new ItemPrimitive(name, maxStackSize);
+    public static ItemPrimer registerItem(String name, int maxStackSize) {
+        return new ItemPrimer(name, maxStackSize);
     }
 
     //TODO future weapon & tools

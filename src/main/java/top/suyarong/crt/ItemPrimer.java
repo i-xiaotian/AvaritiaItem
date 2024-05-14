@@ -7,10 +7,12 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import top.suyarong.items.AvaritiaItemRegisterFactory;
 
+import java.util.Objects;
+
 @ZenRegister
-@ZenClass("mods.avaritiaitem.ItemPrimitive")
+@ZenClass("mods.avaritiaitem.ItemPrimer")
 @SuppressWarnings("unused")
-public class ItemPrimitive {
+public class ItemPrimer {
 
     private String name;
 
@@ -30,14 +32,16 @@ public class ItemPrimitive {
 
     private float maskOpacity;
 
-    public ItemPrimitive() {
+    private boolean shouldDrawCosmic;
+
+    public ItemPrimer() {
     }
 
-    public ItemPrimitive(String name) {
+    public ItemPrimer(String name) {
         setItemName(name);
     }
 
-    public ItemPrimitive(String name, int maxStackSize) {
+    public ItemPrimer(String name, int maxStackSize) {
         setItemName(name);
         setItemMaxStackSize(maxStackSize);
     }
@@ -47,7 +51,7 @@ public class ItemPrimitive {
     }
 
     @ZenMethod("name")
-    public ItemPrimitive setName(String name) {
+    public ItemPrimer setName(String name) {
         setItemName(name);
         return this;
     }
@@ -57,7 +61,7 @@ public class ItemPrimitive {
     }
 
     @ZenMethod("maxStackSize")
-    public ItemPrimitive setMaxStackSize(int maxStackSize) {
+    public ItemPrimer setMaxStackSize(int maxStackSize) {
         setItemMaxStackSize(maxStackSize);
         return this;
     }
@@ -67,7 +71,7 @@ public class ItemPrimitive {
     }
 
     @ZenMethod("shouldDrawHalo")
-    public ItemPrimitive setShouldDrawHalo(boolean shouldDrawHalo) {
+    public ItemPrimer setShouldDrawHalo(boolean shouldDrawHalo) {
         this.shouldDrawHalo = shouldDrawHalo;
         return this;
     }
@@ -77,7 +81,7 @@ public class ItemPrimitive {
     }
 
     @ZenMethod("haloTextures")
-    public ItemPrimitive setHaloTextures(String haloTextures) {
+    public ItemPrimer setHaloTextures(String haloTextures) {
         this.haloTextures = haloTextures;
         return this;
     }
@@ -87,10 +91,10 @@ public class ItemPrimitive {
     }
 
     @ZenMethod("haloColour")
-    public ItemPrimitive setHaloColour(int haloColour) {
+    public ItemPrimer setHaloColour(int haloColour) {
         if (haloColour < 0x000000 || haloColour > 0xFFFFFF) {
             this.maxStackSize = 0xFFFFFF;
-            CraftTweakerAPI.logWarning(String.format("[AvaritiaItem] Invalid haloColour %s, it has being change to white.", haloColour));
+            CraftTweakerAPI.logWarning(String.format("[AvaritiaItem] Invalid haloColour %s, it has been changed to white.", haloColour));
         } else {
             this.haloColour = haloColour;
         }
@@ -102,10 +106,10 @@ public class ItemPrimitive {
     }
 
     @ZenMethod("haloSize")
-    public ItemPrimitive setHaloSize(int haloSize) {
+    public ItemPrimer setHaloSize(int haloSize) {
         if (haloSize <= 0 || haloSize > 16) {
             this.haloSize = 8;
-            CraftTweakerAPI.logWarning(String.format("[AvaritiaItem] Invalid haloSize %s, range: 1-16. it has be change to 8", haloSize));
+            CraftTweakerAPI.logWarning(String.format("[AvaritiaItem] Invalid haloSize %s, range: 1-16. it has been changed to 8", haloSize));
         } else {
             this.haloSize = haloSize;
         }
@@ -117,7 +121,7 @@ public class ItemPrimitive {
     }
 
     @ZenMethod("shouldDrawPulse")
-    public ItemPrimitive setShouldDrawPulse(boolean shouldDrawPulse) {
+    public ItemPrimer setShouldDrawPulse(boolean shouldDrawPulse) {
         this.shouldDrawPulse = shouldDrawPulse;
         return this;
     }
@@ -126,8 +130,18 @@ public class ItemPrimitive {
         return mask;
     }
 
+    @ZenMethod("shouldDrawCosmic")
+    public ItemPrimer setShouldDrawCosmic(boolean shouldDrawCosmic) {
+        this.shouldDrawCosmic = shouldDrawCosmic;
+        return this;
+    }
+
+    public boolean isShouldDrawCosmic() {
+        return shouldDrawCosmic;
+    }
+
     @ZenMethod("mask")
-    public ItemPrimitive setMask(String mask) {
+    public ItemPrimer setMask(String mask) {
         this.mask = mask;
         return this;
     }
@@ -137,20 +151,15 @@ public class ItemPrimitive {
     }
 
     @ZenMethod("maskOpacity")
-    public ItemPrimitive setMaskOpacity(float maskOpacity) {
+    public ItemPrimer setMaskOpacity(float maskOpacity) {
         this.maskOpacity = maskOpacity;
         return this;
-    }
-
-    @ZenMethod
-    public void create() {
-        AvaritiaItemRegisterFactory.itemPrimitiveList.add(this);
     }
 
     private void setItemMaxStackSize(int maxStackSize) {
         if (maxStackSize <= 0 || maxStackSize > 64) {
             this.maxStackSize = 64;
-            CraftTweakerAPI.logWarning(String.format("[AvaritiaItem] Invalid maxStackSize %s, it has being change to 64.", maxStackSize));
+            CraftTweakerAPI.logWarning(String.format("[AvaritiaItem] Invalid maxStackSize %s, it has been changed to 64.", maxStackSize));
         } else {
             this.maxStackSize = maxStackSize;
         }
@@ -170,5 +179,19 @@ public class ItemPrimitive {
         }
 
         this.name = name;
+    }
+
+    @ZenMethod
+    public void create() {
+        final String itemName = this.getName();
+        final ItemPrimer itemPrimer = AvaritiaItemRegisterFactory.ITEM_PRIMER_LIST.stream()
+                .filter(item -> item.getName().equals(itemName))
+                .findFirst()
+                .orElse(null);
+        if (Objects.nonNull(itemPrimer)) {
+            CraftTweakerAPI.logError(String.format("[AvaritiaItem] duplicate itemName Error, %s already exist", itemName));
+            throw new IllegalArgumentException(String.format("[AvaritiaItem] duplicate itemName Error, %s already exist", itemName));
+        }
+        AvaritiaItemRegisterFactory.ITEM_PRIMER_LIST.add(this);
     }
 }
