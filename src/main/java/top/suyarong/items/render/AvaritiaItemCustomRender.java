@@ -1,4 +1,4 @@
-package top.suyarong.render;
+package top.suyarong.items.render;
 
 import codechicken.lib.colour.Colour;
 import morph.avaritia.api.IHaloRenderItem;
@@ -13,12 +13,12 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.model.IModelState;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("unused")
 public class AvaritiaItemCustomRender extends CosmicItemRender {
 
-    private final Random random = new Random();
+    private static final ThreadLocalRandom random = ThreadLocalRandom.current();
 
     private boolean showHalo;
 
@@ -41,9 +41,6 @@ public class AvaritiaItemCustomRender extends CosmicItemRender {
 
     @Override
     public void renderItem(final ItemStack itemStack, final ItemCameraTransforms.TransformType transformType) {
-        if (showCosmicMask) {
-            super.renderItem(itemStack, transformType);
-        }
         if (showHalo) {
             Tessellator tess = Tessellator.getInstance();
             BufferBuilder buffer = tess.getBuffer();
@@ -103,6 +100,9 @@ public class AvaritiaItemCustomRender extends CosmicItemRender {
             } else {
                 renderModel(wrapped, itemStack);
             }
+        }
+        if (showCosmicMask) {
+            super.renderItem(itemStack, transformType);
         }
     }
 

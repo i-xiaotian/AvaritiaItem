@@ -1,9 +1,8 @@
 package top.suyarong.proxy;
 
 import codechicken.lib.texture.TextureUtils;
-import net.minecraftforge.common.MinecraftForge;
 import top.suyarong.items.registry.RegisterModel;
-import top.suyarong.render.AvaritiaItemTextures;
+import top.suyarong.items.render.AvaritiaItemTextures;
 
 public class ClientProxy extends CommonProxy{
 

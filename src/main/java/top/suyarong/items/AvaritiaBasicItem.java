@@ -9,10 +9,12 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 import top.suyarong.AvaritiaItem;
-import top.suyarong.render.AvaritiaItemCustomRender;
+import top.suyarong.items.render.AvaritiaItemCustomRender;
 
 public abstract class AvaritiaBasicItem extends Item implements IModelRegister {
 
@@ -23,21 +25,6 @@ public abstract class AvaritiaBasicItem extends Item implements IModelRegister {
     public static String texturesPath;
 
     private String type;
-
-    public AvaritiaBasicItem(String name, String type) {
-        super();
-        if (StringUtils.isBlank(name)) {
-            log.warn(new TextComponentTranslation("message.item_register.blank_name").getFormattedText());
-            return;
-        }
-        String lowerCaseName = name.toLowerCase();
-        setRegistryName(lowerCaseName);
-        setTranslationKey(ITEM_PREFIX + lowerCaseName);
-        setCreativeTab(AvaritiaItem.avaritiaItemTab);
-        texturesPath = AvaritiaItem.MOD_ID + ":items/";
-        setType(type);
-        log.info(new TextComponentTranslation("message.item_register.success", lowerCaseName).getFormattedText());
-    }
 
     public AvaritiaBasicItem(String name, int maxStackSize, String type) {
         super();
@@ -60,6 +47,7 @@ public abstract class AvaritiaBasicItem extends Item implements IModelRegister {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void registerModels() {
         final ResourceLocation registryName = getRegistryName();
 
@@ -67,21 +55,17 @@ public abstract class AvaritiaBasicItem extends Item implements IModelRegister {
         ModelResourceLocation location = new ModelResourceLocation(registryName, "type=" + type);
         ModelLoader.registerItemVariants(this, location);
 
-        IBakedModel wrappedModel = createWrappedModel(location, shouldShowHalo(), shouldShowCosmic());
+        IBakedModel wrappedModel = new AvaritiaItemCustomRender(
+                TransformUtils.DEFAULT_ITEM,
+                modelRegistry -> modelRegistry.getObject(location),
+                shouldShowHalo(),
+                shouldShowCosmic()
+        );
 
         ModelRegistryHelper.register(location, wrappedModel);
         ModelLoader.setCustomMeshDefinition(this, stack -> location);
 
         log.info("item registryName {} with model type {} register success", registryName, type);
-    }
-
-    private IBakedModel createWrappedModel(ModelResourceLocation location, boolean shouldShowHalo, boolean shouldShowCosmic) {
-        return new AvaritiaItemCustomRender(
-                TransformUtils.DEFAULT_ITEM,
-                modelRegistry -> modelRegistry.getObject(location),
-                shouldShowHalo,
-                shouldShowCosmic
-        );
     }
 
     protected abstract boolean shouldShowHalo();

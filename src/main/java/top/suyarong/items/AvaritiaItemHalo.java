@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import top.suyarong.render.AvaritiaItemTextures;
+import top.suyarong.items.render.AvaritiaItemTextures;
 
 @SuppressWarnings("unused")
 public class AvaritiaItemHalo extends AvaritiaBasicItem implements IHaloRenderItem {
@@ -27,6 +27,7 @@ public class AvaritiaItemHalo extends AvaritiaBasicItem implements IHaloRenderIt
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public boolean shouldDrawHalo(ItemStack itemStack) {
         return this.shouldDrawHalo;
     }
@@ -36,13 +37,13 @@ public class AvaritiaItemHalo extends AvaritiaBasicItem implements IHaloRenderIt
     public TextureAtlasSprite getHaloTexture(ItemStack itemStack) {
         final ResourceLocation registryName = this.getRegistryName();
         assert registryName != null;
-        return AvaritiaItemTextures.itemHaloTexturesMap.get(registryName.toString());
+        return AvaritiaItemTextures.ITEM_HALO_TEXTURES_MAP.get(registryName.toString());
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public int getHaloColour(ItemStack itemStack) {
-        return 0xFF000000;
+        return this.haloColour;
     }
 
     @Override
@@ -88,7 +89,7 @@ public class AvaritiaItemHalo extends AvaritiaBasicItem implements IHaloRenderIt
     }
 
     public void setHaloColour(int haloColour) {
-        this.haloColour = haloColour < 0x000000 || haloColour > 0xFFFFFF ? 0xFFFFFF : haloColour;
+        this.haloColour = haloColour;
     }
 
     public void setHaloSize(int haloSize) {

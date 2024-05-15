@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
-import top.suyarong.render.AvaritiaItemTextures;
+import top.suyarong.items.render.AvaritiaItemTextures;
 
 @SuppressWarnings("unused")
 public class AvaritiaItemCosmic extends AvaritiaBasicItem implements ICosmicRenderItem {
@@ -22,13 +22,15 @@ public class AvaritiaItemCosmic extends AvaritiaBasicItem implements ICosmicRend
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public TextureAtlasSprite getMaskTexture(ItemStack itemStack, @Nullable EntityLivingBase entityLivingBase) {
         final ResourceLocation registryName = this.getRegistryName();
         assert registryName != null;
-        return AvaritiaItemTextures.itemCosmicTexturesMap.get(registryName.toString());
+        return AvaritiaItemTextures.ITEM_COSMIC_TEXTURES_MAP.get(registryName.toString());
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public float getMaskOpacity(ItemStack itemStack, @Nullable EntityLivingBase entityLivingBase) {
         return maskOpacity;
     }

@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
-import top.suyarong.render.AvaritiaItemTextures;
+import top.suyarong.items.render.AvaritiaItemTextures;
 
 @SuppressWarnings("unused")
 public class AvaritiaItemHaloCosmic extends AvaritiaBasicItem implements IHaloRenderItem, ICosmicRenderItem {
@@ -27,10 +27,6 @@ public class AvaritiaItemHaloCosmic extends AvaritiaBasicItem implements IHaloRe
 
     private boolean shouldDrawPulse;
 
-    public AvaritiaItemHaloCosmic(String name, String type) {
-        super(name, type);
-    }
-
     public AvaritiaItemHaloCosmic(String name, int maxStackSize, String type) {
         super(name, maxStackSize, type);
     }
@@ -40,7 +36,7 @@ public class AvaritiaItemHaloCosmic extends AvaritiaBasicItem implements IHaloRe
     public TextureAtlasSprite getMaskTexture(ItemStack itemStack, @Nullable EntityLivingBase entityLivingBase) {
         final ResourceLocation registryName = this.getRegistryName();
         assert registryName != null;
-        return AvaritiaItemTextures.itemCosmicTexturesMap.get(registryName.toString());
+        return AvaritiaItemTextures.ITEM_COSMIC_TEXTURES_MAP.get(registryName.toString());
     }
 
     @Override
@@ -60,13 +56,13 @@ public class AvaritiaItemHaloCosmic extends AvaritiaBasicItem implements IHaloRe
     public TextureAtlasSprite getHaloTexture(ItemStack itemStack) {
         final ResourceLocation registryName = this.getRegistryName();
         assert registryName != null;
-        return AvaritiaItemTextures.itemHaloTexturesMap.get(registryName.toString());
+        return AvaritiaItemTextures.ITEM_HALO_TEXTURES_MAP.get(registryName.toString());
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public int getHaloColour(ItemStack itemStack) {
-        return 0xFF000000;
+        return this.haloColour;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class ItemPrimer {
 
     private String haloTextures;
 
-    private int haloColour;
+    private String haloColour;
 
     private int haloSize;
 
@@ -92,19 +92,29 @@ public class ItemPrimer {
         return this;
     }
 
-    public int getHaloColour() {
+    public String getHaloColour() {
         return haloColour;
     }
 
     @ZenMethod("haloColour")
-    public ItemPrimer setHaloColour(int haloColour) {
-        if (haloColour < 0x000000 || haloColour > 0xFFFFFF) {
-            this.maxStackSize = 0xFFFFFF;
-            CraftTweakerAPI.logWarning(String.format("[AvaritiaItem] Invalid haloColour %s, it has been changed to white.", haloColour));
-        } else {
-            this.haloColour = haloColour;
-        }
+    public ItemPrimer setHaloColour(String haloColour) {
+        this.haloColour = isValidHexColor(haloColour);
         return this;
+    }
+
+    private String isValidHexColor(String hexColor) {
+        if (hexColor.length() != 6) {
+            CraftTweakerAPI.logWarning(String.format("[AvaritiaItem] Invalid haloColour %s, it has been changed to white(FFFFFF).", hexColor));
+            hexColor = "FFFFFF";
+        }
+        for (char c : hexColor.toCharArray()) {
+            if (!((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F'))) {
+                CraftTweakerAPI.logWarning(String.format("[AvaritiaItem] Invalid haloColour %s, it has been changed to white(FFFFFF).", hexColor));
+                hexColor = "FFFFFF";
+                break;
+            }
+        }
+        return hexColor;
     }
 
     public int getHaloSize() {

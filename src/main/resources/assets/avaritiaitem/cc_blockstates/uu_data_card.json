@@ -13,7 +13,7 @@
   },
   "variants": {
     "type": {
-      "resource": {
+      "uu_data_card": {
         "textures": {
           "layer0": "items/uu_data_card"
         }

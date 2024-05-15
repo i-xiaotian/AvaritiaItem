@@ -1,19 +1,23 @@
 package top.suyarong.items.registry;
 
 import org.apache.commons.lang3.StringUtils;
+import top.suyarong.AvaritiaItem;
 import top.suyarong.crt.ItemPrimer;
+import top.suyarong.items.AvaritiaBasicItem;
 import top.suyarong.items.AvaritiaItemCosmic;
 import top.suyarong.items.AvaritiaItemHalo;
 import top.suyarong.items.AvaritiaItemHaloCosmic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AvaritiaItemRegisterFactory {
 
     public static final List<ItemPrimer> ITEM_PRIMER_LIST = new ArrayList<>();
 
     public static void createItems() {
+
         ITEM_PRIMER_LIST.forEach(item -> {
 
             final boolean shouldDrawHalo = item.isShouldDrawHalo();
@@ -24,42 +28,55 @@ public class AvaritiaItemRegisterFactory {
             final int maxStackSize = item.getMaxStackSize();
             final String type = item.getType();
 
+            AvaritiaBasicItem avaritiaBasicItem = null;
+
             if (shouldDrawCosmic && !shouldDrawHalo && !shouldDrawPulse) {
-                registerCosmicItem(item, name, maxStackSize, type);
+                avaritiaBasicItem = registerCosmicItem(item, name, maxStackSize, type);
             } else if (shouldDrawHalo || shouldDrawPulse) {
                 if (shouldDrawCosmic) {
-                    registerHaloCosmicItem(item, name, maxStackSize, type, shouldDrawHalo, shouldDrawPulse);
+                    avaritiaBasicItem = registerHaloCosmicItem(item, name, maxStackSize, type, shouldDrawHalo, shouldDrawPulse);
                 } else {
-                    registerHaloItem(item, name, maxStackSize, type, shouldDrawHalo, shouldDrawPulse);
+                    avaritiaBasicItem = registerHaloItem(item, name, maxStackSize, type, shouldDrawHalo, shouldDrawPulse);
                 }
             }
+            if (Objects.isNull(avaritiaBasicItem)) {
+                throw new IllegalArgumentException(String.format("[%s] Failed to create AvaritiaItem %s due to incorrect creation parameters", AvaritiaItem.MOD_ID, name));
+            }
+            RegisterModel.ITEM_MODEL_REG_LIST.add(avaritiaBasicItem);
         });
+        ITEM_PRIMER_LIST.clear();
     }
 
-    private static void registerHaloItem(ItemPrimer item, String name, int maxStackSize, String type, boolean shouldDrawHalo, boolean shouldDrawPulse) {
+    private static AvaritiaBasicItem registerHaloItem(ItemPrimer item, String name, int maxStackSize, String type, boolean shouldDrawHalo, boolean shouldDrawPulse) {
+        final String haloColour = item.getHaloColour();
+
         AvaritiaItemHalo avaritiaItemHalo = new AvaritiaItemHalo(name, maxStackSize, type);
-        avaritiaItemHalo.setHaloColour(item.getHaloColour());
+        avaritiaItemHalo.setHaloColour(getHexColor(haloColour));
         avaritiaItemHalo.setHaloSize(item.getHaloSize());
         avaritiaItemHalo.setHaloTextures(item.getHaloTextures());
         avaritiaItemHalo.setShouldDrawHalo(shouldDrawHalo);
         avaritiaItemHalo.setShouldDrawPulse(shouldDrawPulse);
 
         RegisterItem.HALO_ITEM_REG_LIST.add(avaritiaItemHalo);
-        RegisterModel.ITEM_MODEL_REG_LIST.add(avaritiaItemHalo);
+
+        return avaritiaItemHalo;
     }
 
-    private static void registerCosmicItem(ItemPrimer item, String name, int maxStackSize, String type) {
+    private static AvaritiaBasicItem registerCosmicItem(ItemPrimer item, String name, int maxStackSize, String type) {
         AvaritiaItemCosmic avaritiaItemCosmic = new AvaritiaItemCosmic(name, maxStackSize, type);
         avaritiaItemCosmic.setMask(item.getMask());
         avaritiaItemCosmic.setMaskOpacity(item.getMaskOpacity());
 
         RegisterItem.COSMIC_ITEM_REG_LIST.add(avaritiaItemCosmic);
         RegisterModel.ITEM_MODEL_REG_LIST.add(avaritiaItemCosmic);
+        return avaritiaItemCosmic;
     }
 
-    private static void registerHaloCosmicItem(ItemPrimer item, String name, int maxStackSize, String type, boolean shouldDrawHalo, boolean shouldDrawPulse) {
-        AvaritiaItemHaloCosmic avaritiaItemHaloCosmic = new AvaritiaItemHaloCosmic(name, type);
-        avaritiaItemHaloCosmic.setHaloColour(item.getHaloColour());
+    private static AvaritiaBasicItem registerHaloCosmicItem(ItemPrimer item, String name, int maxStackSize, String type, boolean shouldDrawHalo, boolean shouldDrawPulse) {
+        final String haloColour = item.getHaloColour();
+
+        AvaritiaItemHaloCosmic avaritiaItemHaloCosmic = new AvaritiaItemHaloCosmic(name, maxStackSize, type);
+        avaritiaItemHaloCosmic.setHaloColour(getHexColor(haloColour));
         avaritiaItemHaloCosmic.setHaloSize(item.getHaloSize());
         avaritiaItemHaloCosmic.setHaloTextures(item.getHaloTextures());
         avaritiaItemHaloCosmic.setShouldDrawHalo(shouldDrawHalo);
@@ -69,6 +86,12 @@ public class AvaritiaItemRegisterFactory {
 
         RegisterItem.HALO_COSMIC_ITEM_REG_LIST.add(avaritiaItemHaloCosmic);
         RegisterModel.ITEM_MODEL_REG_LIST.add(avaritiaItemHaloCosmic);
+        return avaritiaItemHaloCosmic;
+    }
+
+    private static int getHexColor(String colorString) {
+        if (StringUtils.isBlank(colorString)) colorString = "FFFFFF";
+        return Integer.parseInt("FF", 16) << 24 | Integer.parseInt(colorString, 16);
     }
 }
 

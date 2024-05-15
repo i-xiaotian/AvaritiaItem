@@ -1,15 +1,12 @@
 package top.suyarong;
 
 import codechicken.lib.CodeChickenLib;
-import crafttweaker.CraftTweakerAPI;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
-import top.suyarong.crt.AvaritiaItemBuilder;
-import top.suyarong.crt.ItemPrimer;
 import top.suyarong.proxy.CommonProxy;
 import top.suyarong.items.tab.AvaritiaItemTab;
 
@@ -44,11 +41,6 @@ public class AvaritiaItem {
         event.getModMetadata().version = VERSION;
         log = event.getModLog();
         avaritiaItemTab = new AvaritiaItemTab(MOD_ID);
-
-        CraftTweakerAPI.registerClass(ItemPrimer.class);
-        CraftTweakerAPI.registerClass(AvaritiaItemBuilder.class);
-
-        CraftTweakerAPI.tweaker.loadScript(false, "avaritiaitem");
 
         proxy.preInit();
     }
