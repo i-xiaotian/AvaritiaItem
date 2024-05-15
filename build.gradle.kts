@@ -177,6 +177,8 @@ repositories {
 dependencies {
     annotationProcessor("com.github.bsideup.jabel:jabel-javac-plugin:0.4.2")
     compileOnly("com.github.bsideup.jabel:jabel-javac-plugin:0.4.2")
+    compileOnly("org.openjfx:javafx-controls:19.0.2.1")
+    compileOnly("org.openjfx:javafx-fxml:19.0.2.1")
     // workaround for https://github.com/bsideup/jabel/issues/174
     annotationProcessor("net.java.dev.jna:jna-platform:5.13.0")
     // Allow jdk.unsupported classes like sun.misc.Unsafe, workaround for JDK-8206937 and fixes Forge crashes in tests.

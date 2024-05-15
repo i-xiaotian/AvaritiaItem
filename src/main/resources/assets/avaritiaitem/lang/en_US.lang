@@ -3,3 +3,5 @@ itemGroup.avaritiaitem=AvaritiaItem
 message.item_register.success=item successfully registered: %s
 message.item_register.blank_name=item name can not be null or blank
 item.avaritiaitem.copper_coil.name=what is it
+item.avaritiaitem.uu_data_card.name=what is it again?
+item.avaritiaitem.eternal_singularity.name=what is it again?

@@ -1,42 +1,69 @@
 package top.suyarong.items;
 
+import org.apache.commons.lang3.StringUtils;
 import top.suyarong.crt.ItemPrimer;
+import top.suyarong.items.registry.RegisterItem;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-public class AvaritiaItemRegisterFactory<T extends AvaritiaBasicItem> {
+public class AvaritiaItemRegisterFactory {
 
     public static final List<ItemPrimer> ITEM_PRIMER_LIST = new ArrayList<>();
 
-    public static <T extends AvaritiaBasicItem> Map<String, T> createItems() {
+    public static void createItems() {
         ITEM_PRIMER_LIST.forEach(item -> {
-            final String name = item.getName();
+
             final boolean shouldDrawHalo = item.isShouldDrawHalo();
             final boolean shouldDrawPulse = item.isShouldDrawPulse();
-
             final boolean shouldDrawCosmic = item.isShouldDrawCosmic();
 
-            if (shouldDrawHalo || shouldDrawPulse) {
+            final String name = item.getName();
+            final int maxStackSize = item.getMaxStackSize();
+            final String type = StringUtils.isBlank(item.getType()) ? "custom_avaritia_item" : item.getType();
 
-            } else if (shouldDrawCosmic) {
-
-            } else {
-
+            if (shouldDrawCosmic && !shouldDrawHalo && !shouldDrawPulse) {
+                registerCosmicItem(item, name, maxStackSize, type);
+            } else if (shouldDrawHalo || shouldDrawPulse) {
+                if (shouldDrawCosmic) {
+                    registerHaloCosmicItem(item, name, maxStackSize, type, shouldDrawHalo, shouldDrawPulse);
+                } else {
+                    registerHaloItem(item, name, maxStackSize, type, shouldDrawHalo, shouldDrawPulse);
+                }
             }
-
-
-
         });
-        return null;
     }
 
-//    public static void onItemRegister(RegistryEvent.Register<Item> event) {
-//        AvaritiaItemHalo copperCoil = new AvaritiaItemHalo("copper_coil");
-//        event.getRegistry().register(copperCoil);
-//        copperCoil.registerModels();
-//    }
+    private static void registerHaloItem(ItemPrimer item, String name, int maxStackSize, String type, boolean shouldDrawHalo, boolean shouldDrawPulse) {
+        AvaritiaItemHalo avaritiaItemHalo = new AvaritiaItemHalo(name, maxStackSize, type);
+        avaritiaItemHalo.setHaloColour(item.getHaloColour());
+        avaritiaItemHalo.setHaloSize(item.getHaloSize());
+        avaritiaItemHalo.setHaloTextures(item.getHaloTextures());
+        avaritiaItemHalo.setShouldDrawHalo(shouldDrawHalo);
+        avaritiaItemHalo.setShouldDrawPulse(shouldDrawPulse);
 
+        RegisterItem.HALO_ITEM_REG_LIST.add(avaritiaItemHalo);
+    }
+
+    private static void registerCosmicItem(ItemPrimer item, String name, int maxStackSize, String type) {
+        AvaritiaItemCosmic avaritiaItemCosmic = new AvaritiaItemCosmic(name, maxStackSize, type);
+        avaritiaItemCosmic.setMask(item.getMask());
+        avaritiaItemCosmic.setMaskOpacity(item.getMaskOpacity());
+
+        RegisterItem.COSMIC_ITEM_REG_LIST.add(avaritiaItemCosmic);
+    }
+
+    private static void registerHaloCosmicItem(ItemPrimer item, String name, int maxStackSize, String type, boolean shouldDrawHalo, boolean shouldDrawPulse) {
+        AvaritiaItemHaloCosmic avaritiaItemHaloCosmic = new AvaritiaItemHaloCosmic(name, maxStackSize, type);
+        avaritiaItemHaloCosmic.setHaloColour(item.getHaloColour());
+        avaritiaItemHaloCosmic.setHaloSize(item.getHaloSize());
+        avaritiaItemHaloCosmic.setHaloTextures(item.getHaloTextures());
+        avaritiaItemHaloCosmic.setShouldDrawHalo(shouldDrawHalo);
+        avaritiaItemHaloCosmic.setShouldDrawPulse(shouldDrawPulse);
+        avaritiaItemHaloCosmic.setMask(item.getMask());
+        avaritiaItemHaloCosmic.setMaskOpacity(item.getMaskOpacity());
+
+        RegisterItem.HALO_COSMIC_ITEM_REG_LIST.add(avaritiaItemHaloCosmic);
+    }
 }
+

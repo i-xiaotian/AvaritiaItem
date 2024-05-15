@@ -1,14 +1,14 @@
 package top.suyarong.items;
 
-import codechicken.lib.util.TransformUtils;
 import morph.avaritia.api.ICosmicRenderItem;
-import morph.avaritia.client.render.item.CosmicItemRender;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
+import top.suyarong.render.AvaritiaItemTextures;
 
 @SuppressWarnings("unused")
 public class AvaritiaItemCosmic extends AvaritiaBasicItem implements ICosmicRenderItem {
@@ -23,7 +23,9 @@ public class AvaritiaItemCosmic extends AvaritiaBasicItem implements ICosmicRend
 
     @Override
     public TextureAtlasSprite getMaskTexture(ItemStack itemStack, @Nullable EntityLivingBase entityLivingBase) {
-        return TEXTURE_MAP.registerSprite(new ResourceLocation(texturesPath + mask));
+        final ResourceLocation registryName = this.getRegistryName();
+        assert registryName != null;
+        return AvaritiaItemTextures.itemCosmicTexturesMap.get(registryName.toString());
     }
 
     @Override
@@ -32,9 +34,12 @@ public class AvaritiaItemCosmic extends AvaritiaBasicItem implements ICosmicRend
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void registerModels() {
         super.registerModels();
     }
+
+    // 以下代码只参与初始化，与渲染无关
 
     @Override
     protected boolean shouldShowHalo() {
@@ -46,13 +51,12 @@ public class AvaritiaItemCosmic extends AvaritiaBasicItem implements ICosmicRend
         return true;
     }
 
-    @Override
-    protected CosmicItemRender genCosmicRenderModel(final ModelResourceLocation location) {
-        return new CosmicItemRender(TransformUtils.DEFAULT_ITEM, modelRegistry -> modelRegistry.getObject(location));
-    }
-
     public void setMask(String mask) {
         this.mask = mask;
+    }
+
+    public String getMask() {
+        return mask;
     }
 
     public void setMaskOpacity(float maskOpacity) {

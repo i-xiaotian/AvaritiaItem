@@ -1,17 +1,15 @@
 package top.suyarong.items;
 
-import codechicken.lib.util.TransformUtils;
 import morph.avaritia.api.ICosmicRenderItem;
 import morph.avaritia.api.IHaloRenderItem;
-import morph.avaritia.client.render.item.CosmicItemRender;
-import morph.avaritia.init.AvaritiaTextures;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.lang3.StringUtils;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
+import top.suyarong.render.AvaritiaItemTextures;
 
 @SuppressWarnings("unused")
 public class AvaritiaItemHaloCosmic extends AvaritiaBasicItem implements IHaloRenderItem, ICosmicRenderItem {
@@ -34,64 +32,77 @@ public class AvaritiaItemHaloCosmic extends AvaritiaBasicItem implements IHaloRe
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public TextureAtlasSprite getMaskTexture(ItemStack itemStack, @Nullable EntityLivingBase entityLivingBase) {
-        return TEXTURE_MAP.registerSprite(new ResourceLocation(texturesPath + mask));
+        final ResourceLocation registryName = this.getRegistryName();
+        assert registryName != null;
+        return AvaritiaItemTextures.itemCosmicTexturesMap.get(registryName.toString());
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public float getMaskOpacity(ItemStack itemStack, @Nullable EntityLivingBase entityLivingBase) {
         return maskOpacity;
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public boolean shouldDrawHalo(ItemStack itemStack) {
         return this.shouldDrawHalo;
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public TextureAtlasSprite getHaloTexture(ItemStack itemStack) {
-        return StringUtils.isBlank(haloTextures)
-                ? AvaritiaTextures.HALO
-                : TEXTURE_MAP.registerSprite(new ResourceLocation(texturesPath + haloTextures));
+        final ResourceLocation registryName = this.getRegistryName();
+        assert registryName != null;
+        return AvaritiaItemTextures.itemHaloTexturesMap.get(registryName.toString());
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public int getHaloColour(ItemStack itemStack) {
-        return haloColour;
+        return 0xFF000000;
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public int getHaloSize(ItemStack itemStack) {
-        return haloSize;
+        return haloSize <= 0 || haloSize > 16 ? 8 : haloSize;
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public boolean shouldDrawPulse(ItemStack itemStack) {
         return shouldDrawPulse;
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void registerModels() {
         super.registerModels();
     }
 
     @Override
     protected boolean shouldShowHalo() {
-        return false;
+        return true;
     }
 
     @Override
     protected boolean shouldShowCosmic() {
-        return false;
-    }
-
-    @Override
-    protected CosmicItemRender genCosmicRenderModel(final ModelResourceLocation location) {
-        return new CosmicItemRender(TransformUtils.DEFAULT_ITEM, modelRegistry -> modelRegistry.getObject(location));
+        return true;
     }
 
     public void setMask(String mask) {
         this.mask = mask;
+    }
+
+    public String getMask() {
+        return this.mask;
+    }
+
+    public String getHaloTextures() {
+        return this.haloTextures;
     }
 
     public void setMaskOpacity(float maskOpacity) {

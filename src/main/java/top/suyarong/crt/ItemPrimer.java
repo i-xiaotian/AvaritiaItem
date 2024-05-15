@@ -9,7 +9,6 @@ import top.suyarong.items.AvaritiaItemRegisterFactory;
 
 import java.util.Objects;
 
-@ZenRegister
 @ZenClass("mods.avaritiaitem.ItemPrimer")
 @SuppressWarnings("unused")
 public class ItemPrimer {
@@ -17,6 +16,8 @@ public class ItemPrimer {
     private String name;
 
     private int maxStackSize;
+
+    private String type;
 
     private boolean shouldDrawHalo;
 
@@ -44,6 +45,12 @@ public class ItemPrimer {
     public ItemPrimer(String name, int maxStackSize) {
         setItemName(name);
         setItemMaxStackSize(maxStackSize);
+    }
+
+    public ItemPrimer(String name, int maxStackSize, String type) {
+        setItemName(name);
+        setItemMaxStackSize(maxStackSize);
+        setType(type);
     }
 
     public String getName() {
@@ -181,6 +188,14 @@ public class ItemPrimer {
         this.name = name;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @ZenMethod
     public void create() {
         final String itemName = this.getName();
@@ -191,6 +206,12 @@ public class ItemPrimer {
         if (Objects.nonNull(itemPrimer)) {
             CraftTweakerAPI.logError(String.format("[AvaritiaItem] duplicate itemName Error, %s already exist", itemName));
             throw new IllegalArgumentException(String.format("[AvaritiaItem] duplicate itemName Error, %s already exist", itemName));
+        }
+        if (shouldDrawCosmic) {
+            if (StringUtils.isBlank(mask)) {
+                CraftTweakerAPI.logError("[AvaritiaItem] if shouldDrawCosmic is true, mask can not be null or empty");
+                throw new IllegalArgumentException("[AvaritiaItem] if shouldDrawCosmic is true, mask can not be null or empty");
+            }
         }
         AvaritiaItemRegisterFactory.ITEM_PRIMER_LIST.add(this);
     }

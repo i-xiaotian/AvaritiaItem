@@ -2,15 +2,12 @@ package top.suyarong.items;
 
 
 import morph.avaritia.api.IHaloRenderItem;
-import morph.avaritia.client.render.item.CosmicItemRender;
-import morph.avaritia.init.AvaritiaTextures;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.commons.lang3.StringUtils;
+import top.suyarong.render.AvaritiaItemTextures;
 
 @SuppressWarnings("unused")
 public class AvaritiaItemHalo extends AvaritiaBasicItem implements IHaloRenderItem {
@@ -35,23 +32,27 @@ public class AvaritiaItemHalo extends AvaritiaBasicItem implements IHaloRenderIt
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public TextureAtlasSprite getHaloTexture(ItemStack itemStack) {
-        return StringUtils.isBlank(haloTextures)
-                ? AvaritiaTextures.HALO
-                : TEXTURE_MAP.registerSprite(new ResourceLocation(texturesPath + haloTextures));
+        final ResourceLocation registryName = this.getRegistryName();
+        assert registryName != null;
+        return AvaritiaItemTextures.itemHaloTexturesMap.get(registryName.toString());
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public int getHaloColour(ItemStack itemStack) {
-        return haloColour;
+        return 0xFF000000;
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public int getHaloSize(ItemStack itemStack) {
-        return haloSize;
+        return haloSize ;
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public boolean shouldDrawPulse(ItemStack itemStack) {
         return shouldDrawPulse;
     }
@@ -61,6 +62,8 @@ public class AvaritiaItemHalo extends AvaritiaBasicItem implements IHaloRenderIt
     public void registerModels() {
         super.registerModels();
     }
+
+    // 以下代码只参与初始化，与渲染无关
 
     @Override
     protected boolean shouldShowHalo() {
@@ -72,11 +75,6 @@ public class AvaritiaItemHalo extends AvaritiaBasicItem implements IHaloRenderIt
         return false;
     }
 
-    @Override
-    protected CosmicItemRender genCosmicRenderModel(final ModelResourceLocation location) {
-        return null;
-    }
-
     public void setShouldDrawHalo(boolean shouldDrawHalo) {
         this.shouldDrawHalo = shouldDrawHalo;
     }
@@ -85,8 +83,12 @@ public class AvaritiaItemHalo extends AvaritiaBasicItem implements IHaloRenderIt
         this.haloTextures = haloTextures;
     }
 
+    public String getHaloTextures() {
+        return this.haloTextures;
+    }
+
     public void setHaloColour(int haloColour) {
-        this.haloColour = haloColour;
+        this.haloColour = haloColour < 0x000000 || haloColour > 0xFFFFFF ? 0xFFFFFF : haloColour;
     }
 
     public void setHaloSize(int haloSize) {
