@@ -1,8 +1,10 @@
-package top.suyarong.items;
+package top.suyarong.items.registry;
 
 import org.apache.commons.lang3.StringUtils;
 import top.suyarong.crt.ItemPrimer;
-import top.suyarong.items.registry.RegisterItem;
+import top.suyarong.items.AvaritiaItemCosmic;
+import top.suyarong.items.AvaritiaItemHalo;
+import top.suyarong.items.AvaritiaItemHaloCosmic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +22,7 @@ public class AvaritiaItemRegisterFactory {
 
             final String name = item.getName();
             final int maxStackSize = item.getMaxStackSize();
-            final String type = StringUtils.isBlank(item.getType()) ? "custom_avaritia_item" : item.getType();
+            final String type = item.getType();
 
             if (shouldDrawCosmic && !shouldDrawHalo && !shouldDrawPulse) {
                 registerCosmicItem(item, name, maxStackSize, type);
@@ -43,6 +45,7 @@ public class AvaritiaItemRegisterFactory {
         avaritiaItemHalo.setShouldDrawPulse(shouldDrawPulse);
 
         RegisterItem.HALO_ITEM_REG_LIST.add(avaritiaItemHalo);
+        RegisterModel.ITEM_MODEL_REG_LIST.add(avaritiaItemHalo);
     }
 
     private static void registerCosmicItem(ItemPrimer item, String name, int maxStackSize, String type) {
@@ -51,10 +54,11 @@ public class AvaritiaItemRegisterFactory {
         avaritiaItemCosmic.setMaskOpacity(item.getMaskOpacity());
 
         RegisterItem.COSMIC_ITEM_REG_LIST.add(avaritiaItemCosmic);
+        RegisterModel.ITEM_MODEL_REG_LIST.add(avaritiaItemCosmic);
     }
 
     private static void registerHaloCosmicItem(ItemPrimer item, String name, int maxStackSize, String type, boolean shouldDrawHalo, boolean shouldDrawPulse) {
-        AvaritiaItemHaloCosmic avaritiaItemHaloCosmic = new AvaritiaItemHaloCosmic(name, maxStackSize, type);
+        AvaritiaItemHaloCosmic avaritiaItemHaloCosmic = new AvaritiaItemHaloCosmic(name, type);
         avaritiaItemHaloCosmic.setHaloColour(item.getHaloColour());
         avaritiaItemHaloCosmic.setHaloSize(item.getHaloSize());
         avaritiaItemHaloCosmic.setHaloTextures(item.getHaloTextures());
@@ -64,6 +68,7 @@ public class AvaritiaItemRegisterFactory {
         avaritiaItemHaloCosmic.setMaskOpacity(item.getMaskOpacity());
 
         RegisterItem.HALO_COSMIC_ITEM_REG_LIST.add(avaritiaItemHaloCosmic);
+        RegisterModel.ITEM_MODEL_REG_LIST.add(avaritiaItemHaloCosmic);
     }
 }
 

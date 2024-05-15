@@ -14,7 +14,7 @@ public class ClientProxy extends CommonProxy{
     public void preInit() {
         super.preInit();
         TextureUtils.addIconRegister(new AvaritiaItemTextures());
-        MinecraftForge.EVENT_BUS.register(new RegisterModel());
+        RegisterModel.registryItemModels();
     }
 
 

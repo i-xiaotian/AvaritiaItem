@@ -98,9 +98,9 @@ tasks.javadoc.configure {
 
 tasks.jar.configure {
     manifest {
-        val attributes = manifest.attributes
-        attributes["FMLCorePlugin"] = "github.kasuminova.novaeng.mixin.NovaEngCoreEarlyMixinLoader"
-        attributes["FMLCorePluginContainsFMLMod"] = true
+//        val attributes = manifest.attributes
+//        attributes["FMLCorePlugin"] = "github.kasuminova.novaeng.mixin.NovaEngCoreEarlyMixinLoader"
+//        attributes["FMLCorePluginContainsFMLMod"] = true
 //        attributes["FMLAT"] = "novaeng_core_at.cfg"
     }
 }

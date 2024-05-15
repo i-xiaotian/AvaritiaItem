@@ -1,4 +1,4 @@
-package top.suyarong.tab;
+package top.suyarong.items.tab;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;

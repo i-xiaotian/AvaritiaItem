@@ -1,11 +1,10 @@
 package top.suyarong.crt;
 
 import crafttweaker.CraftTweakerAPI;
-import crafttweaker.annotations.ZenRegister;
 import org.apache.commons.lang3.StringUtils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import top.suyarong.items.AvaritiaItemRegisterFactory;
+import top.suyarong.items.registry.AvaritiaItemRegisterFactory;
 
 import java.util.Objects;
 

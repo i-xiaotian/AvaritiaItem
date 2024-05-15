@@ -1,20 +1,21 @@
 package top.suyarong;
 
+import codechicken.lib.CodeChickenLib;
 import crafttweaker.CraftTweakerAPI;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 import top.suyarong.crt.AvaritiaItemBuilder;
 import top.suyarong.crt.ItemPrimer;
 import top.suyarong.proxy.CommonProxy;
-import top.suyarong.tab.AvaritiaItemTab;
+import top.suyarong.items.tab.AvaritiaItemTab;
 
 @Mod(modid = AvaritiaItem.MOD_ID, name = AvaritiaItem.MOD_NAME, version = AvaritiaItem.VERSION,
-        dependencies = "required-after:forge@[14.23.5.2847,);" +
+        dependencies = CodeChickenLib.MOD_VERSION_DEP +
+                "required-after:forge@[14.23.5.2847,);" +
                 "required-after:crafttweaker@[4.0.4,);" +
                 "required-after:avaritia@[3.3.0,);",
         acceptedMinecraftVersions = "[1.12, 1.13)")

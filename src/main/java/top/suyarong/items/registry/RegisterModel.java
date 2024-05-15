@@ -10,8 +10,7 @@ import java.util.List;
 public class RegisterModel {
     public static final List<AvaritiaBasicItem> ITEM_MODEL_REG_LIST = new ArrayList<>();
 
-    @SubscribeEvent
-    public void registryItemModels(ModelRegistryEvent event) {
+    public static void registryItemModels() {
         ITEM_MODEL_REG_LIST.forEach(AvaritiaBasicItem::registerModels);
         ITEM_MODEL_REG_LIST.clear();
     }

@@ -24,6 +24,21 @@ public abstract class AvaritiaBasicItem extends Item implements IModelRegister {
 
     private String type;
 
+    public AvaritiaBasicItem(String name, String type) {
+        super();
+        if (StringUtils.isBlank(name)) {
+            log.warn(new TextComponentTranslation("message.item_register.blank_name").getFormattedText());
+            return;
+        }
+        String lowerCaseName = name.toLowerCase();
+        setRegistryName(lowerCaseName);
+        setTranslationKey(ITEM_PREFIX + lowerCaseName);
+        setCreativeTab(AvaritiaItem.avaritiaItemTab);
+        texturesPath = AvaritiaItem.MOD_ID + ":items/";
+        setType(type);
+        log.info(new TextComponentTranslation("message.item_register.success", lowerCaseName).getFormattedText());
+    }
+
     public AvaritiaBasicItem(String name, int maxStackSize, String type) {
         super();
         if (StringUtils.isBlank(name)) {
@@ -38,7 +53,6 @@ public abstract class AvaritiaBasicItem extends Item implements IModelRegister {
         texturesPath = AvaritiaItem.MOD_ID + ":items/";
         setType(type);
         log.info(new TextComponentTranslation("message.item_register.success", lowerCaseName).getFormattedText());
-
     }
 
     protected void setType(String type) {

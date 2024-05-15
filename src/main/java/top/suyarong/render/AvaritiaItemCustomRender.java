@@ -41,7 +41,9 @@ public class AvaritiaItemCustomRender extends CosmicItemRender {
 
     @Override
     public void renderItem(final ItemStack itemStack, final ItemCameraTransforms.TransformType transformType) {
-        super.renderItem(itemStack, transformType);
+        if (showCosmicMask) {
+            super.renderItem(itemStack, transformType);
+        }
         if (showHalo) {
             Tessellator tess = Tessellator.getInstance();
             BufferBuilder buffer = tess.getBuffer();
