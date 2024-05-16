@@ -7,7 +7,7 @@
       "description": "create items with avaritia's item effects by CraftTweaker",
       "version": "${version}",
       "mcversion": "${mcversion}",
-      "url": "https://github.com/i-xiaotian/top.suyarong.AvaritiaItem.git",
+      "url": "https://github.com/i-xiaotian/AvaritiaItem.git",
       "updateUrl": "",
       "authorList": [
         "i_xiaotian"
