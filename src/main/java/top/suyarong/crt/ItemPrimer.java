@@ -5,7 +5,10 @@ import org.apache.commons.lang3.StringUtils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import top.suyarong.items.registry.AvaritiaItemRegisterFactory;
+import top.suyarong.items.render.ColorfulToolTip;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @ZenClass("mods.avaritiaitem.ItemPrimer")
@@ -34,7 +37,12 @@ public class ItemPrimer {
 
     private boolean shouldDrawCosmic;
 
+    private boolean colorfulName;
+
+    private List<ColorfulToolTip> colorfulToolTips;
+
     public ItemPrimer() {
+        this.colorfulToolTips = new ArrayList<>();
     }
 
     public ItemPrimer(String name) {
@@ -98,7 +106,7 @@ public class ItemPrimer {
 
     @ZenMethod("haloColour")
     public ItemPrimer setHaloColour(String haloColour) {
-        this.haloColour = isValidHexColor(haloColour);
+        this.haloColour = isValidHexColor(haloColour).toUpperCase();
         return this;
     }
 
@@ -108,7 +116,7 @@ public class ItemPrimer {
             hexColor = "FFFFFF";
         }
         for (char c : hexColor.toCharArray()) {
-            if (!((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F'))) {
+            if (!((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f'))) {
                 CraftTweakerAPI.logWarning(String.format("[AvaritiaItem] Invalid haloColour %s, it has been changed to white(FFFFFF).", hexColor));
                 hexColor = "FFFFFF";
                 break;
@@ -223,5 +231,31 @@ public class ItemPrimer {
             }
         }
         AvaritiaItemRegisterFactory.ITEM_PRIMER_LIST.add(this);
+    }
+
+    @ZenMethod("colorfulName")
+    public ItemPrimer setColorfulName(boolean colorfulName) {
+        this.colorfulName = colorfulName;
+        return this;
+    }
+
+    @ZenMethod
+    public ItemPrimer addTooltip(String tooltip) {
+        this.colorfulToolTips.add(new ColorfulToolTip(tooltip));
+        return this;
+    }
+
+    @ZenMethod
+    public ItemPrimer addTooltip(String tooltip, boolean colorfulTooltip) {
+        this.colorfulToolTips.add(new ColorfulToolTip(tooltip, colorfulTooltip));
+        return this;
+    }
+
+    public boolean getColorfulName() {
+        return this.colorfulName;
+    }
+
+    public List<ColorfulToolTip> getColorfulToolTips() {
+        return this.colorfulToolTips;
     }
 }

@@ -2,6 +2,3 @@ itemGroup.avaritiaitem=无尽特效物品
 
 message.item_register.success=已成功注册物品: %s
 message.item_register.blank_name=物品名字不能为空
-item.avaritiaitem.copper_coil.name=例子
-item.avaritiaitem.uu_data_card.name=宇宙背景例子
-item.avaritiaitem.eternal_singularity.name=宇宙背景例子

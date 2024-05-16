@@ -7,6 +7,8 @@ import top.suyarong.items.AvaritiaBasicItem;
 import top.suyarong.items.AvaritiaItemCosmic;
 import top.suyarong.items.AvaritiaItemHalo;
 import top.suyarong.items.AvaritiaItemHaloCosmic;
+import top.suyarong.items.render.ColorfulToolTip;
+import top.suyarong.utils.ResourceGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +50,10 @@ public class AvaritiaItemRegisterFactory {
     }
 
     private static AvaritiaBasicItem registerHaloItem(ItemPrimer item, String name, int maxStackSize, String type, boolean shouldDrawHalo, boolean shouldDrawPulse) {
+
         final String haloColour = item.getHaloColour();
+        final boolean colorfulName = item.getColorfulName();
+        final List<ColorfulToolTip> colorfulToolTips = item.getColorfulToolTips();
 
         AvaritiaItemHalo avaritiaItemHalo = new AvaritiaItemHalo(name, maxStackSize, type);
         avaritiaItemHalo.setHaloColour(getHexColor(haloColour));
@@ -56,16 +61,23 @@ public class AvaritiaItemRegisterFactory {
         avaritiaItemHalo.setHaloTextures(item.getHaloTextures());
         avaritiaItemHalo.setShouldDrawHalo(shouldDrawHalo);
         avaritiaItemHalo.setShouldDrawPulse(shouldDrawPulse);
+        avaritiaItemHalo.setColorfulName(colorfulName);
+        avaritiaItemHalo.setColorfulToolTips(colorfulToolTips);
 
         RegisterItem.HALO_ITEM_REG_LIST.add(avaritiaItemHalo);
-
         return avaritiaItemHalo;
     }
 
     private static AvaritiaBasicItem registerCosmicItem(ItemPrimer item, String name, int maxStackSize, String type) {
+
+        final boolean colorfulName = item.getColorfulName();
+        final List<ColorfulToolTip> colorfulToolTips = item.getColorfulToolTips();
+
         AvaritiaItemCosmic avaritiaItemCosmic = new AvaritiaItemCosmic(name, maxStackSize, type);
         avaritiaItemCosmic.setMask(item.getMask());
         avaritiaItemCosmic.setMaskOpacity(item.getMaskOpacity());
+        avaritiaItemCosmic.setColorfulName(colorfulName);
+        avaritiaItemCosmic.setColorfulToolTips(colorfulToolTips);
 
         RegisterItem.COSMIC_ITEM_REG_LIST.add(avaritiaItemCosmic);
         RegisterModel.ITEM_MODEL_REG_LIST.add(avaritiaItemCosmic);
@@ -75,6 +87,9 @@ public class AvaritiaItemRegisterFactory {
     private static AvaritiaBasicItem registerHaloCosmicItem(ItemPrimer item, String name, int maxStackSize, String type, boolean shouldDrawHalo, boolean shouldDrawPulse) {
         final String haloColour = item.getHaloColour();
 
+        final boolean colorfulName = item.getColorfulName();
+        final List<ColorfulToolTip> colorfulToolTips = item.getColorfulToolTips();
+
         AvaritiaItemHaloCosmic avaritiaItemHaloCosmic = new AvaritiaItemHaloCosmic(name, maxStackSize, type);
         avaritiaItemHaloCosmic.setHaloColour(getHexColor(haloColour));
         avaritiaItemHaloCosmic.setHaloSize(item.getHaloSize());
@@ -83,6 +98,8 @@ public class AvaritiaItemRegisterFactory {
         avaritiaItemHaloCosmic.setShouldDrawPulse(shouldDrawPulse);
         avaritiaItemHaloCosmic.setMask(item.getMask());
         avaritiaItemHaloCosmic.setMaskOpacity(item.getMaskOpacity());
+        avaritiaItemHaloCosmic.setColorfulName(colorfulName);
+        avaritiaItemHaloCosmic.setColorfulToolTips(colorfulToolTips);
 
         RegisterItem.HALO_COSMIC_ITEM_REG_LIST.add(avaritiaItemHaloCosmic);
         RegisterModel.ITEM_MODEL_REG_LIST.add(avaritiaItemHaloCosmic);

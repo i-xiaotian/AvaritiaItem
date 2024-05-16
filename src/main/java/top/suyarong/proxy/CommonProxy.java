@@ -20,7 +20,6 @@ public class CommonProxy {
         AvaritiaItemRegisterFactory.createItems();
         RegisterItem.registerItems();
     }
-
     public void init() {
 
     }

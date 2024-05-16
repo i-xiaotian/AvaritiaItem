@@ -15,6 +15,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 import top.suyarong.AvaritiaItem;
 import top.suyarong.items.render.AvaritiaItemCustomRender;
+import top.suyarong.items.render.ColorfulToolTip;
+
+import java.util.List;
 
 public abstract class AvaritiaBasicItem extends Item implements IModelRegister {
 
@@ -25,6 +28,10 @@ public abstract class AvaritiaBasicItem extends Item implements IModelRegister {
     public static String texturesPath;
 
     private String type;
+
+    private boolean colorfulName;
+
+    private List<ColorfulToolTip> colorfulToolTips;
 
     public AvaritiaBasicItem(String name, int maxStackSize, String type) {
         super();
@@ -66,6 +73,26 @@ public abstract class AvaritiaBasicItem extends Item implements IModelRegister {
         ModelLoader.setCustomMeshDefinition(this, stack -> location);
 
         log.info("item registryName {} with model type {} register success", registryName, type);
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public boolean getColorfulName() {
+        return colorfulName;
+    }
+
+    public void setColorfulName(final boolean colorfulName) {
+        this.colorfulName = colorfulName;
+    }
+
+    public List<ColorfulToolTip> getColorfulToolTips() {
+        return colorfulToolTips;
+    }
+
+    public void setColorfulToolTips(final List<ColorfulToolTip> colorfulToolTips) {
+        this.colorfulToolTips = colorfulToolTips;
     }
 
     protected abstract boolean shouldShowHalo();

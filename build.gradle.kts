@@ -12,7 +12,7 @@ plugins {
 
 // Project properties
 group = "top.suyarong"
-version = "1.0.0-pre"
+version = "1.0.0-beta"
 
 // Set the toolchain version to decouple the Java we run Gradle with from the Java used to compile and run the mod
 java {
