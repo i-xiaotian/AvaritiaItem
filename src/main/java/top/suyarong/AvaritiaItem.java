@@ -20,7 +20,7 @@ public class AvaritiaItem {
 
     public static final String MOD_ID = "avaritiaitem";
 
-    public static final String MOD_NAME = "AvaritiaItem(无尽物品)";
+    public static final String MOD_NAME = "AvaritiaItem";
 
     public static final String VERSION = Tags.VERSION;
 
