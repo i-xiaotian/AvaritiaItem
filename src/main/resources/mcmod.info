@@ -3,7 +3,7 @@
   "modList": [
     {
       "modid": "avaritiaitem",
-      "name": "AvaritiaItem(无尽物品)",
+      "name": "Avaritia Item",
       "description": "create items with avaritia's item effects by CraftTweaker",
       "version": "${version}",
       "mcversion": "${mcversion}",
