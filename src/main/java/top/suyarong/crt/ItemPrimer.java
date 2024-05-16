@@ -39,7 +39,8 @@ public class ItemPrimer {
 
     private boolean colorfulName;
 
-    private List<ColorfulToolTip> colorfulToolTips;
+    private final List<ColorfulToolTip> colorfulToolTips;
+
 
     public ItemPrimer() {
         this.colorfulToolTips = new ArrayList<>();
@@ -47,17 +48,20 @@ public class ItemPrimer {
 
     public ItemPrimer(String name) {
         setItemName(name);
+        this.colorfulToolTips = new ArrayList<>();
     }
 
     public ItemPrimer(String name, int maxStackSize) {
         setItemName(name);
         setItemMaxStackSize(maxStackSize);
+        this.colorfulToolTips = new ArrayList<>();
     }
 
     public ItemPrimer(String name, int maxStackSize, String type) {
         setItemName(name);
         setItemMaxStackSize(maxStackSize);
         setType(type);
+        this.colorfulToolTips = new ArrayList<>();
     }
 
     public String getName() {
