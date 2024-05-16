@@ -19,8 +19,8 @@ public class ResourceGenerator {
     }
 
     private static void generateResourceFolder() {
-        final File langFile = new File("resources/assets/avaritiaitem/lang");
-        final File itemFile = new File("resources/assets/avaritiaitem/textures/items");
+        final File langFile = new File("resources/avaritiaitem/lang");
+        final File itemFile = new File("resources/avaritiaitem/textures/items");
         if (langFile.exists() && itemFile.exists()) return;
 
         langFile.mkdirs();
