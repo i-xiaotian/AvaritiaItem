@@ -36,7 +36,7 @@ public class ResourceGenerator {
 
         final String modelJson = BasicItemModel.jsonGenerator(type, nameString);
 
-        final File file = new File("resources/assets/avaritiaitem/cc_blockstates/" + nameString + ".json");
+        final File file = new File("resources/avaritiaitem/cc_blockstates/" + nameString + ".json");
         if (file.exists()) {
             return;
         }
