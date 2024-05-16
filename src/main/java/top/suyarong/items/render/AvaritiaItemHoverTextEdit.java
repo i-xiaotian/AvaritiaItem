@@ -22,7 +22,8 @@ public class AvaritiaItemHoverTextEdit {
             final List<ColorfulToolTip> colorfulToolTips = item.getColorfulToolTips();
             final boolean colorfulName = item.getColorfulName();
             if (colorfulName) {
-                event.getToolTip().set(0, TextUtils.makeFabulous(event.getToolTip().get(0)));
+                final String itemName = event.getToolTip().get(0);
+                event.getToolTip().set(0, TextUtils.makeFabulous(itemName.substring(0, itemName.length() - 2)));
             }
 
             if (Objects.isNull(colorfulToolTips) || colorfulToolTips.isEmpty()) return;
