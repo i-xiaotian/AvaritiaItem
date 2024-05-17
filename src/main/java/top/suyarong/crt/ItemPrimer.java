@@ -75,7 +75,7 @@ public class ItemPrimer {
     }
 
     public int getMaxStackSize() {
-        return maxStackSize;
+        return maxStackSize == 0 ? 64: maxStackSize;
     }
 
     @ZenMethod("maxStackSize")

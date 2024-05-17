@@ -40,9 +40,10 @@ public class AvaritiaItemRegisterFactory {
                     avaritiaBasicItem = registerHaloItem(item, name, maxStackSize, type, shouldDrawHalo, shouldDrawPulse);
                 }
             }
-            if (Objects.isNull(avaritiaBasicItem)) {
-                throw new IllegalArgumentException(String.format("[%s] Failed to create AvaritiaItem %s due to incorrect creation parameters", AvaritiaItem.MOD_ID, name));
+            if (!shouldDrawCosmic && !shouldDrawHalo && !shouldDrawPulse) {
+                avaritiaBasicItem = registerHaloItem(item, name, maxStackSize, type, false, false);
             }
+
             RegisterModel.ITEM_MODEL_REG_LIST.add(avaritiaBasicItem);
         });
         ITEM_PRIMER_LIST.clear();
