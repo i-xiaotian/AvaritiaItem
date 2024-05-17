@@ -1,7 +1,5 @@
 package top.suyarong.items.registry;
 
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import top.suyarong.items.AvaritiaBasicItem;
 
 import java.util.ArrayList;

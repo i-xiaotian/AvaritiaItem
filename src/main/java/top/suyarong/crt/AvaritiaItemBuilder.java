@@ -1,6 +1,5 @@
 package top.suyarong.crt;
 
-import crafttweaker.annotations.ZenRegister;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 

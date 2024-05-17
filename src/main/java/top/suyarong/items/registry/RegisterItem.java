@@ -1,12 +1,6 @@
 package top.suyarong.items.registry;
 
-import net.minecraft.item.Item;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.relauncher.Side;
-import top.suyarong.AvaritiaItem;
 import top.suyarong.items.AvaritiaBasicItem;
 
 import java.util.ArrayList;

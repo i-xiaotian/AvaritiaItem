@@ -1,5 +1,6 @@
 package top.suyarong.items.render;
 
+@SuppressWarnings("unused")
 public class ColorfulToolTip {
 
     private String toolTip;

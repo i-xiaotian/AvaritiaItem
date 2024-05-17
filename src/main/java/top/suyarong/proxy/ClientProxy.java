@@ -7,10 +7,8 @@ import top.suyarong.items.render.AvaritiaItemHoverTextEdit;
 import top.suyarong.items.render.AvaritiaItemTextures;
 import top.suyarong.utils.ResourceGenerator;
 
+@SuppressWarnings("unused")
 public class ClientProxy extends CommonProxy{
-
-    public ClientProxy() {
-    }
 
     @Override
     public void preInit() {

@@ -8,7 +8,6 @@ import top.suyarong.items.AvaritiaItemCosmic;
 import top.suyarong.items.AvaritiaItemHalo;
 import top.suyarong.items.AvaritiaItemHaloCosmic;
 import top.suyarong.items.render.ColorfulToolTip;
-import top.suyarong.utils.ResourceGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
