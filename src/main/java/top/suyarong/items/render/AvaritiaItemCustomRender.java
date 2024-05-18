@@ -13,12 +13,12 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.model.IModelState;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 @SuppressWarnings("unused")
 public class AvaritiaItemCustomRender extends CosmicItemRender {
 
-    private static final ThreadLocalRandom random = ThreadLocalRandom.current();
+    private static final Random random = new Random();
 
     private boolean showHalo;
 
