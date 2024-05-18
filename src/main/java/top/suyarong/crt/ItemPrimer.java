@@ -27,6 +27,8 @@ public class ItemPrimer {
 
     private String haloColour;
 
+    private int haloOpacity;
+
     private int haloSize;
 
     private boolean shouldDrawPulse;
@@ -75,7 +77,7 @@ public class ItemPrimer {
     }
 
     public int getMaxStackSize() {
-        return maxStackSize == 0 ? 64: maxStackSize;
+        return maxStackSize == 0 ? 64 : maxStackSize;
     }
 
     @ZenMethod("maxStackSize")
@@ -196,7 +198,7 @@ public class ItemPrimer {
     private void setItemName(String name) {
         if (StringUtils.isBlank(name)) {
             CraftTweakerAPI.logError("[AvaritiaItem] item name can not be null or blank ");
-            throw new IllegalArgumentException("[AvaritiaItem] item name can not be null or blank");
+            return;
         }
         String lowerCase = name.toLowerCase();
         if (!StringUtils.equals(name, lowerCase)) {
@@ -226,12 +228,14 @@ public class ItemPrimer {
                 .orElse(null);
         if (Objects.nonNull(itemPrimer)) {
             CraftTweakerAPI.logError(String.format("[AvaritiaItem] duplicate itemName Error, %s already exist", itemName));
-            throw new IllegalArgumentException(String.format("[AvaritiaItem] duplicate itemName Error, %s already exist", itemName));
+            return;
         }
         if (shouldDrawCosmic) {
             if (StringUtils.isBlank(mask)) {
-                CraftTweakerAPI.logError("[AvaritiaItem] if shouldDrawCosmic is true, mask can not be null or empty");
-                throw new IllegalArgumentException("[AvaritiaItem] if shouldDrawCosmic is true, mask can not be null or empty");
+                CraftTweakerAPI.logError(String.format(
+                        "[AvaritiaItem] if shouldDrawCosmic is true, item %s mask can not be null or empty", itemName
+                ));
+                return;
             }
         }
         AvaritiaItemRegisterFactory.ITEM_PRIMER_LIST.add(this);
@@ -253,6 +257,20 @@ public class ItemPrimer {
     public ItemPrimer addTooltip(String tooltip, boolean colorfulTooltip) {
         this.colorfulToolTips.add(new ColorfulToolTip(tooltip, colorfulTooltip));
         return this;
+    }
+
+    public int getHaloOpacity() {
+        return haloOpacity;
+    }
+
+    @ZenMethod("haloOpacity")
+    public ItemPrimer setHaloOpacity(int haloOpacity) {
+        this.haloOpacity = haloOpacity;
+        return this;
+    }
+
+    public boolean isColorfulName() {
+        return colorfulName;
     }
 
     public boolean getColorfulName() {

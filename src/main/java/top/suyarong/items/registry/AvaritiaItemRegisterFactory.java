@@ -1,7 +1,6 @@
 package top.suyarong.items.registry;
 
 import org.apache.commons.lang3.StringUtils;
-import top.suyarong.AvaritiaItem;
 import top.suyarong.crt.ItemPrimer;
 import top.suyarong.items.AvaritiaBasicItem;
 import top.suyarong.items.AvaritiaItemCosmic;
@@ -11,7 +10,6 @@ import top.suyarong.items.render.ColorfulToolTip;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class AvaritiaItemRegisterFactory {
 
@@ -52,11 +50,12 @@ public class AvaritiaItemRegisterFactory {
     private static AvaritiaBasicItem registerHaloItem(ItemPrimer item, String name, int maxStackSize, String type, boolean shouldDrawHalo, boolean shouldDrawPulse) {
 
         final String haloColour = item.getHaloColour();
+        final int haloOpacity = item.getHaloOpacity();
         final boolean colorfulName = item.getColorfulName();
         final List<ColorfulToolTip> colorfulToolTips = item.getColorfulToolTips();
 
         AvaritiaItemHalo avaritiaItemHalo = new AvaritiaItemHalo(name, maxStackSize, type);
-        avaritiaItemHalo.setHaloColour(getHexColor(haloColour));
+        avaritiaItemHalo.setHaloColour(getHexColor(haloOpacity, haloColour));
         avaritiaItemHalo.setHaloSize(item.getHaloSize());
         avaritiaItemHalo.setHaloTextures(item.getHaloTextures());
         avaritiaItemHalo.setShouldDrawHalo(shouldDrawHalo);
@@ -86,12 +85,13 @@ public class AvaritiaItemRegisterFactory {
 
     private static AvaritiaBasicItem registerHaloCosmicItem(ItemPrimer item, String name, int maxStackSize, String type, boolean shouldDrawHalo, boolean shouldDrawPulse) {
         final String haloColour = item.getHaloColour();
+        final int haloOpacity = item.getHaloOpacity();
 
         final boolean colorfulName = item.getColorfulName();
         final List<ColorfulToolTip> colorfulToolTips = item.getColorfulToolTips();
 
         AvaritiaItemHaloCosmic avaritiaItemHaloCosmic = new AvaritiaItemHaloCosmic(name, maxStackSize, type);
-        avaritiaItemHaloCosmic.setHaloColour(getHexColor(haloColour));
+        avaritiaItemHaloCosmic.setHaloColour(getHexColor(haloOpacity, haloColour));
         avaritiaItemHaloCosmic.setHaloSize(item.getHaloSize());
         avaritiaItemHaloCosmic.setHaloTextures(item.getHaloTextures());
         avaritiaItemHaloCosmic.setShouldDrawHalo(shouldDrawHalo);
@@ -106,9 +106,11 @@ public class AvaritiaItemRegisterFactory {
         return avaritiaItemHaloCosmic;
     }
 
-    private static int getHexColor(String colorString) {
+    private static int getHexColor(int haloOpacity, String colorString) {
+        if (haloOpacity == 0) haloOpacity = 100;
         if (StringUtils.isBlank(colorString)) colorString = "FFFFFF";
-        return Integer.parseInt("FF", 16) << 24 | Integer.parseInt(colorString, 16);
+        int alpha = (int) (haloOpacity / 100.0 * 255);
+        return alpha << 24 | Integer.parseInt(colorString, 16);
     }
 }
 

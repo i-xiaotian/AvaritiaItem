@@ -27,14 +27,13 @@ public class AvaritiaItemHoverTextEdit {
             }
 
             if (Objects.isNull(colorfulToolTips) || colorfulToolTips.isEmpty()) return;
-            for (int i = 1; i <= colorfulToolTips.size(); i++) {
 
+            for (int i = 1; i <= colorfulToolTips.size(); i++) {
                 final ColorfulToolTip colorfulToolTip = colorfulToolTips.get(i - 1);
                 final String toolTip = colorfulToolTip.getToolTip();
                 final boolean isColorful = colorfulToolTip.isColorfulToolTip();
                 final String tooltipString = isColorful ? TextUtils.makeFabulous(toolTip) : toolTip;
                 event.getToolTip().add(i, tooltipString);
-
             }
 
 

@@ -44,7 +44,7 @@ public class AvaritiaItemCustomRender extends CosmicItemRender {
         if (showHalo) {
             Tessellator tess = Tessellator.getInstance();
             BufferBuilder buffer = tess.getBuffer();
-            if (itemStack.getItem() instanceof final IHaloRenderItem haloRenderItem && transformType == ItemCameraTransforms.TransformType.GUI) {
+            if (itemStack.getItem() instanceof final IHaloRenderItem haloRenderItem) {
 
                 GlStateManager.pushMatrix();
                 GlStateManager.enableBlend();
