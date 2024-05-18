@@ -10,12 +10,15 @@ import top.suyarong.items.render.ColorfulToolTip;
 
 public class CommonProxy {
 
+    public static boolean itemIsRegister;
+
     public void preInit() {
         CraftTweakerAPI.registerClass(ItemPrimer.class);
         CraftTweakerAPI.registerClass(AvaritiaItemBuilder.class);
         CraftTweakerAPI.registerClass(ColorfulToolTip.class);
         CraftTweakerAPI.tweaker.loadScript(false, "avaritiaitem");
         AvaritiaItemRegisterFactory.createItems();
+        itemIsRegister = true;
         RegisterItem.registerItems();
     }
     public void init() {

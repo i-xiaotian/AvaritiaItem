@@ -42,7 +42,10 @@ public class ResourceGenerator {
         }
         try {
             if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs();
+                if (!file.getParentFile().mkdirs()) {
+                    AvaritiaItem.log.warn(String.format("[AvaritiaItem] Item %s model file parent directories create failed", nameString));
+                    return;
+                }
             }
             if (!file.createNewFile()) {
                 AvaritiaItem.log.warn(String.format("[AvaritiaItem] Item %s model file create failed", nameString));
@@ -53,7 +56,9 @@ public class ResourceGenerator {
             }
             AvaritiaItem.log.info(String.format("[AvaritiaItem] Item %s model file create success", nameString));
         } catch (IOException e) {
-            AvaritiaItem.log.warn(String.format("[AvaritiaItem] Item %s model file create failed", nameString));
+            AvaritiaItem.log.warn(String.format("[AvaritiaItem] Item %s model file create failed: %s", nameString, e.getMessage()));
+        } catch (Exception e) {
+            AvaritiaItem.log.warn(String.format("[AvaritiaItem] Unexpected error occurred while creating item %s model file: %s", nameString, e.getMessage()));
         }
 
     }
